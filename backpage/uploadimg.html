@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图片管理-批量上传</title>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0">
+		<meta content="telephone=no" name="format-detection" />
+		<link rel="stylesheet" type="text/css" href="/backpage/css/reset.css"/>
+	</head>
+	<style type="text/css">
+		body {min-width:1000px;}
+		.wpiclist {float:left;width:33%;border-left:2px solid #888888;background-color:#EB9D45;font-size:18px;}
+		.wpiclist ul {width:80%;margin:0 auto;}
+		.wpiclist ul li {margin-top:20px;}
+		.wpiclist p {padding-top:10px;margin-left:5px;}
+		.wuppic {float:left;width:33%;font-size:18px;margin-left:20px;background-color:#FFF2E3;}
+		.wuppic-nav {width:300px;margin:50px auto;}
+		.wuppic-nav select {width:50%;float:right;}
+		.wuppic-cont {font-size:16px;}
+		#uploadBox ul li {float: left;position: relative;margin-left: 5px;margin-top: 5px;}    
+		#uploadBox  li img {border: 1px solid #D1D1D1;width: 198px;height: 112px;vertical-align: middle;  }    
+		#uploadBox  li  .percentage {width: 69px;height: 69px;position: absolute;left: 50%;top: 50%;margin-left: -34.5px;margin-top: -34.5px;text-align: center;font-size: 18px;line-height: 69px;color: #fff;border-radius: 34.5px;background: rgba(0, 0, 0, .8); }    
+		#uploadBox  li.done .percentage {background: url("img/done.png") no-repeat 0 0;text-indent: -1000em;}    
+		#uploadBox li .progress {position: absolute;height: 22.4px;bottom: 0px;width: 200px;background: #000;opacity: .5;}
+		#uploadBox {width:298px;height:200px;border:2px solid #888;margin:0 auto;overflow:auto;border-radius:10px; }	
+	</style>
+	<body>
+		<div class="bptop">
+			<div>logo</div>
+			<div class="">
+				欢迎admin
+				修改密码
+				注销
+			</div>
+			
+		</div>
+		
+	  <div class="bpnav">
+	  	<ul>
+	  		<li>
+	  			<h3>基本设置</h3>
+	  			<p>站点属性</p>
+	  			<p>导航结构</p>
+	  			<p>样式测试</p>
+	  		</li>
+	  		<li>
+	  			<h3>六合</h3>
+	  			<p>站点属性</p>
+	  			<p>导航结构</p>
+	  			<p>样式测试</p>
+	  		</li>
+	  		<li>
+	  			<h3>文章管理</h3>
+	  			<p>站点属性</p>
+	  			<p>导航结构</p>
+	  			<p>样式测试</p>
+	  		</li>
+	  		<li>
+	  			<h3>图片管理</h3>
+	  			<p>站点属性</p>
+	  			<p>导航结构</p>
+	  			<p>样式测试</p>
+	  		</li>
+	  		<li>
+	  			<h3>单页管理</h3>
+	  			<p>站点属性</p>
+	  			<p>导航结构</p>
+	  			<p>样式测试</p>
+	  		</li>
+	  	</ul>
+	  </div>
+	  <div class="wuppic">
+	  	<div class="wuppic-nav">
+	  		<span>图片分类</span>
+	  		<select class="">
+	  			<option value="">分类1</option>
+	  			<option value="">分类2</option>
+	  		</select>
+	  	</div>
+	  	<span class="wuppic-cont">	  
+			<div id="uploadBox"></div>  
+			<ul id="template" class="hidden">  
+			   	<li>  
+			       	<img src=""/>  
+			       	<span class="progress"></span>  
+			    	<span class="percentage"></span>  
+			    </li>  
+			</ul>  
+		</span>  
+	  </div>
+	  <div class="wpiclist">
+	  	<p>上传清单</p>
+	  	<ul>
+	  		<li>分类1 - 图片2 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  		<li>分类1 - 图片1 保存成功 <span>【删除】</span></li>
+	  	</ul>
+	  </div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+
+	</body>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript">
+
+			$('.wpiclist ul li span').click(function(){
+				$(this).parent().hide();
+			})
+			
+			
+			
+			
+			var wuplei = $("option:selected").text();
+		
+			var uploadImg = {};  
+			uploadImg.html5upload = (function (){  
+		    var _ID_UPLOAD_BOX = "uploadBox";  
+		    var _CLASS_PROGRESS = "progress";  
+		    var _CLASS_PERCENTAGE = "percentage";  
+		  
+		    var _tip_no_drag = "拖拽所有图片到此即可！";  
+		    var _tip_drag_over = "释放鼠标立即上传！";  
+		  
+		    var _uploadEle = null;  
+		  
+		    /** 
+		     * 初始化对象与事件 
+		     * @private 
+		     */  
+		    function _init(){  
+	        _uploadEle = document.getElementById(_ID_UPLOAD_BOX);  
+	        _uploadEle.ondragenter = _onDragEnter;  
+	        _uploadEle.ondragover = _onDragOver;  
+	        _uploadEle.ondragleave = _onDragLeave;  
+	        _uploadEle.ondrop = _onDrop;  
+	        _setStatusNoDrag();  
+	   	 };  
+		/** 
+	     * 正在拖拽状态 
+	     * @private 
+	     */  
+	    function _setDragOverStatus()  
+	    {  
+	        if (_checkContatinsElements())return;  
+	        _uploadEle.innerText = _tip_drag_over;  
+	        _uploadEle.style.border = "2px solid #888";  
+	        $(_uploadEle).css({lineHeight: $(_uploadEle).height() + "px"});  
+	    }  
+	  
+	    /** 
+	     * 初始化状态 
+	     * @private 
+	     */  
+	    function _setStatusNoDrag()  
+	    {  
+	        if (_checkContatinsElements())return;  
+	        _uploadEle.innerText = _tip_no_drag;  
+	        _uploadEle.style.border = "2px solid #888";  
+	        $(_uploadEle).css({lineHeight: $(_uploadEle).height() + "px"});  
+	    }  
+		/** 
+	     * 上传文件 
+	     * @private 
+	     */  
+	    function _setDropStatus()  
+	    {  
+	  
+	        if (_checkContatinsElements())return;  
+	        _uploadEle.innerText = "";  
+	        _uploadEle.style.border = "1px solid #444";  
+	        $(_uploadEle).css({lineHeight: "1em"});  
+	        $(_uploadEle).append("<ul></ul>");  
+	  
+	    };  	
+		/** 
+	     * 判断是否已经上传文件了 
+	     * @private 
+	     */  
+	    function _checkContatinsElements()  
+	    {  
+	        return !!$(_uploadEle).find("li").size();  
+	  
+	    }  
+	    /** 
+	     * 当ondragenter触发 
+	     * @private 
+	     */  
+	    function _onDragEnter(ev)  
+	    {  
+	        _setDragOverStatus();  
+	    }  
+	    /** 
+	     * 当ondargmove触发 
+	     * @private 
+	     */  
+	    function _onDragOver(ev)  
+	    {  
+	        //ondragover中必须组织事件的默认行为，默认地，无法将数据/元素放置到其他元素中。  
+	        ev.preventDefault();  
+	  
+	    }  
+	    /** 
+	     * 当dragleave触发 
+	     * @private 
+	     */  
+	    function _onDragLeave(ev)  
+	    {  
+	        _setStatusNoDrag();  
+	    }  
+	  
+	    /** 
+	     * ondrop触发 
+	     * @private 
+	     */  
+	    function _onDrop(ev)  
+	    {  
+	        //drop 事件的默认行为是以链接形式打开，所以也需要阻止其默认行为。  
+	        ev.preventDefault();  
+	        _setDropStatus();  
+	  
+	        //拿到拖入的文件  
+	        var files = ev.dataTransfer.files;  
+	        var len = files.length;  
+	        for (var i = 0; i < len; i++)  
+	        {  
+	            //页面上显示需要上传的文件  
+	            _showUploadFile(files[i]); 
+	        }  
+	    }  
+	    /** 
+	     * 页面上显示需要上传的文件 
+	     * @private 
+	     */  
+	    function _showUploadFile(file)  
+	    {  
+	        var reader = new FileReader(); 
+	        
+	        
+	        
+	         
+	//        console.log(reader);  
+	  
+	        //判断文件类型  
+	        if (file.type.match(/image*/))  
+	        {  
+	            reader.onload = function (e)  
+	            {  
+	                var formData = new FormData();  
+	  				formData.append("uploadFile", file); 
+	  				console.log(formData); 
+	  				
+	                var li = $("#template li").clone();  
+	                var img = li.find("img");  
+	                var progress = li.find(".progress");  
+	                var percentage = li.find(".percentage");  
+	                percentage.text("0%");  
+	                img.attr("src", e.target.result);  
+	                $("ul", $(_uploadEle)).append(li);  
+	                $(_uploadEle).find("li").size() == 10 && $(_uploadEle).width(($(_uploadEle).width() + 8) + "px").css("overflow", "auto");  
+	                formData.append("uploadFile", file);  
+					console.log(file);
+					console.log(formData);
+	  				
+	                //上传文件到服务器  
+	                _uploadToServer(formData, li, progress, percentage);  
+	                
+	                var picname = file.name;
+	                console.log(picname);
+	                
+//	                $.ajax({
+//						url:"/Picture/addPic",
+//						type: "post", 
+//						data: formData,
+//						dataType:"json",
+//						processData: false,  // 告诉jQuery不要去处理发送的数据
+// 						contentType: false,
+//						success: function(msg){
+//							console.log("success");
+//								
+//							}, //操作成功后的操作！msg是后台传过来的值
+//							error:function(msg){
+//								console.log(msg);
+////								console.log("失败:" + JSON.stringify(responseStr));
+//							}
+//					}); 
+	                	                	                	                	                	            	  
+	            };  
+	            reader.readAsDataURL(file);  
+	        }  
+	        else  
+	        {  
+	            console.log("此" + file.name + "不是图片文件！");  
+	        }  
+	    }  
+	  
+	  
+	  
+	  
+	   function _uploadToServer(formData, li, progress, percentage)  
+    {  
+        var xhr = new XMLHttpRequest();  
+        xhr.open("POST", "/Picture/addPic", true);  
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest', 'Content-Type', 'multipart/form-data;');  
+  
+        //HTML5新增的API，存储了上传过程中的信息  
+        xhr.upload.onprogress = function (e)  
+        {  
+            var percent = 0;  
+            if (e.lengthComputable)  
+            {  
+                //更新页面显示效果  
+                percent = 100 * e.loaded / e.total;  
+                progress.height(percent );  
+                percentage.text(percent + "%");  
+                percent >= 100 && li.addClass("done");  
+            }  
+        };  
+        xhr.send(formData);  
+    }  
+	  
+	  
+	   
+	  
+	    //把init方法公布出去  
+	    return{  
+	        init: _init }  
+	  
+	  
+		})();  
+	
+			
+			  window.onload = function ()  
+	        {  
+	            uploadImg.html5upload.init();  
+	        } ;  
+				
+			
+			
+			
+			
+			
+			
+			
+		</script>
+
+</html>

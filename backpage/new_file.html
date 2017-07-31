@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		
+		doUploadFile: function (data, accept, maxSize, callBack) {
+			File.upload({
+				multi: false,
+				url: Util.getApiUrl("upload/uploadfile"),
+				param: data,
+				accept: accept,
+				before: function (files) {
+					if(!maxSize){
+						if (files[0].size > maxSize * 1024) {
+							Util.info("图像大小不能超过"+maxSize+"KB",2);
+							return false;
+						}
+					}
+					Util.showLoading();
+				},
+				after: function (data) {
+					Util.hideLoading();
+					data = JSON.parse(data).data;
+					callBack && callBack(data);
+				},
+				error: function () {
+					Util.hideLoading();
+					Util.info("上传失败",3);
+				},
+				progress: function () { }
+			});
+		},
+ addImage: function () {
+            Util.doUploadFile({}, "image/jpg;image/jpeg;image/png;image/gif;image/bmp;", 500, function (data) {
+                if (!data) return;
+                var attachment = {
+                    case_id: that.$scope.model.case_id,
+                    res_id: data.res_id,
+                    res_url: data.path,
+                    memo: ""
+                };
+                that.$scope.model.attachmentList.push(attachment);
+                if (attachment.case_id) {
+                    that._saveAttachment(attachment);
+                }
+                that.$scope.$apply();
+            });
+        },
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>
